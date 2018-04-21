@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Edição de Clientes</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <div align="center">
+                <p:messages/>
+                <p:growl/>
+                <p:panelGrid columns="2">
+                    <f:facet name="header">
+                        <p:outputLabel value="Edição de Clientes"/>
+                    </f:facet>
+                    <f:facet name="footer">
+                        <div align="center">
+                            <p:commandButton value="Cancelar"
+                                             action="#{controleCliente.cancelar()}"
+                                             ajax="false" immediate="true"/>
+                            <p:commandButton value="Salvar" icon="ui-icon-disk"
+                                             action="#{controleCliente.salvar()}"
+                                             ajax="false"/>
+                        </div>
+                    </f:facet>
+                    <p:outputLabel value="ID" rendered="#{controleCliente.objeto.id != null}"/>
+                    <p:inputText value="#{controleCliente.objeto.id}" size="5" readonly="true"
+                                 rendered="#{controleCliente.objeto.id != null}"/>
+                    <p:outputLabel value="Nome" for="txtNome"/>
+                    <p:inputText id="txtNome" value="#{controleCliente.objeto.nome}"
+                                 size="50" maxlength="50" autocomplete="off"
+                                 placeholder="Obrigatório" required="true"/>
+                    <p:outputLabel value="Endereço" for="txtEndereco"/>
+                    <p:inputText id="txtEndereco" value="#{controleCliente.objeto.endereco}" size="50" maxlength="50" 
+                                 placeholder="Obrigatório" required="true"/>
+                    <p:outputLabel value="Valor da Compra" for="txtValorCompra"/>
+                    <p:inputText id="txtValorCompra" value="#{controleCliente.objeto.valorCompra}" size="50" maxlength="50" 
+                                 placeholder="Obrigatório" required="true"/>
+                    <p:outputLabel value="CEP Origem" for="txtCepOrigem" rendered="#{controleCliente.objeto.cepOrigem != null}"/>
+                    <p:inputText id="txtCepOrigem" value="#{controleCliente.objeto.cepOrigem}" size="50" maxlength="50" 
+                                 placeholder="Obrigatório" readonly="true" required="true"
+                                 rendered="#{controleCliente.objeto.cepOrigem != null}"/>
+                    <p:outputLabel value="CEP Destino" for="txtCepDestino" rendered="#{controleCliente.objeto.cepDestino != null}"/>
+                    <p:inputText id="txtCepDestino" value="#{controleCliente.objeto.cepDestino}" size="50" maxlength="50" 
+                                 placeholder="Obrigatório" readonly="true" required="true"
+                                 rendered="#{controleCliente.objeto.cepDestino != null}"/>
+                    <p:outputLabel value="Valor Frete" for="txtValorFrete"/>
+                    <p:inputText id="txtValorFrete" value="#{controleCliente.objeto.valorFrete}" size="50" maxlength="50" 
+                                 placeholder="Obrigatório" readonly="true" required="true"/>
+                    <p:outputLabel value="Prazo Entrega" for="txtPrazoEntrega"/>
+                    <p:inputText id="txtPrazoEntrega" value="#{controleCliente.objeto.prazoEntrega}" size="50" maxlength="50" 
+                                 placeholder="Obrigatório" readonly="true" required="true"/>
+                    <p:outputLabel value="Config. de Envio"/>
+                    <p:commandButton value="Frete" style="width: 74px; height: 30px;" type="button" onclick="PF('dlg1').show();" />
+                </p:panelGrid>
+            </div>
+        </h:form> 
+
+        <h:form id="formVenda">
+            <p:dialog header="Valor do Frete e Prazo" widgetVar="dlg1" minHeight="400" minWidth="400">
+                <h:form id="formFrete"> 
+                    <p:panelGrid columns="2" id="grid">
+                        <p:outputLabel value="Serviço: "/>
+                        <p:selectOneMenu value="#{controleCliente.salvaDados.NCdServico}" required="true">
+                            <f:selectItem itemLabel="PAC Varejo" itemValue="41106" />
+                            <f:selectItem  itemLabel="SEDEX Varejo" itemValue="40010" />
+                            <!-- <p:ajax update="listagem" /> -->
+                        </p:selectOneMenu>
+                        <h:outputLabel value="CEP Origem: "/>
+                        <h:inputText value="#{controleCliente.salvaDados.SCepDestino}" 
+                                     size="50" maxlength="50" required="true" requiredMessage="Surname is required."/>
+                        <h:outputLabel value="CEP Destino: "/>
+                        <h:inputText value="#{controleCliente.salvaDados.SCepOrigem}" 
+                                     size="50" maxlength="50" required="true"/>
+                        <h:outputLabel value="Peso: "/>
+                        <h:inputText value="#{controleCliente.salvaDados.NVlPeso}" 
+                                     size="50" maxlength="50" required="true"/>
+                        <h:outputLabel value="Formato: "/>
+                        <p:selectOneMenu value="#{controleCliente.salvaDados.NCdFormato}">
+                            <f:selectItem itemLabel="1 - Formato caixa/pacote" itemValue="1" />
+                            <f:selectItem itemLabel="2 - Formato rolo/prisma" itemValue="2" />
+                            <f:selectItem itemLabel="3 - Envelope" itemValue="3" /> 
+                        </p:selectOneMenu>
+                        <h:outputLabel value="Comprimento: "/>
+                        <h:inputText value="#{controleCliente.salvaDados.NVlComprimento}" 
+                                     size="50" maxlength="50"/>
+                        <h:outputLabel value="Altura: "/>
+                        <h:inputText value="#{controleCliente.salvaDados.NVlAltura}" 
+                                     size="50" maxlength="50"/>
+                        <h:outputLabel value="Largura: "/>
+                        <h:inputText value="#{controleCliente.salvaDados.NVlLargura}" 
+                                     size="50" maxlength="50"/>
+                        <h:outputLabel value="Diametro: "/>
+                        <h:inputText value="#{controleCliente.salvaDados.NVlDiametro}" 
+                                     size="50" maxlength="50"/>
+                        <h:outputLabel value="Mão Propria: "/>
+                        <p:selectOneMenu value="#{controleCliente.salvaDados.SCdMaoPropria}">
+                            <f:selectItem itemLabel="Sim" itemValue="S" />
+                            <f:selectItem itemLabel="Não" itemValue="N" />
+                        </p:selectOneMenu>
+                        <h:outputLabel value="Valor Declarado: "/>
+                        <h:inputText value="#{controleCliente.salvaDados.NVlValorDeclarado}" 
+                                     size="50" maxlength="50"/>
+                        <h:outputLabel value="Aviso Recebimento: "/>
+                        <p:selectOneMenu value="#{controleCliente.salvaDados.SCdAvisoRecebimento}">
+                            <f:selectItem itemLabel="Sim" itemValue="S" />
+                            <f:selectItem itemLabel="Não" itemValue="N" />
+                        </p:selectOneMenu>
+                        <div align="left">
+                            <p:commandButton actionListener="#{controleCliente.enviaFrete()}"
+                                             value="Salvar" ajax="false" icon="ui-icon-disk" title="Salvar Frete"
+                                             update=":formVenda :formFrete grid" process="@form"
+                                             oncomplete="if (!args.validationFailed){PF('dlg1').hide();}"/>                           
+                        </div>
+                    </p:panelGrid>
+                </h:form>
+            </p:dialog>
+        </h:form>
+    </h:body>
+</html>
+
