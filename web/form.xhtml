@@ -61,13 +61,29 @@
         </h:form> 
 
         <h:form id="formVenda">
-            <p:dialog header="Valor do Frete e Prazo" widgetVar="dlg1" minHeight="400" minWidth="400">
+            <p:dialog header="Valor do Frete e Prazo" widgetVar="dlg1" height="480" width="800" resizable="false">
                 <h:form id="formFrete"> 
                     <p:panelGrid columns="2" id="grid">
+                        <h:outputLabel value="Empresa: " rendered="#{controleCliente.salvaDados.NCdEmpresa != null}"/>
+                        <h:inputText value="#{controleCliente.salvaDados.NCdEmpresa}" 
+                                     size="50" maxlength="50" rendered="#{controleCliente.salvaDados.NCdEmpresa != null}"/>
+                        <h:outputLabel value="Senha: " rendered="#{controleCliente.salvaDados.NCdEmpresa != null}"/>
+                        <h:inputText value="#{controleCliente.salvaDados.SDsSenha}" 
+                                     size="50" maxlength="50" rendered="#{controleCliente.salvaDados.NCdEmpresa != null}"/>
                         <p:outputLabel value="Serviço: "/>
                         <p:selectOneMenu value="#{controleCliente.salvaDados.NCdServico}" required="true">
+                            <f:selectItem itemLabel="SEDEX Varejo" itemValue="40010" />
+                            <f:selectItem itemLabel="SEDEX a Cobrar Varejo" itemValue="40045" />
+                            <f:selectItem itemLabel="SEDEX 10 Varejo" itemValue="40215" />
+                            <f:selectItem itemLabel="SEDEX Hoje Varejo" itemValue="40290" />
                             <f:selectItem itemLabel="PAC Varejo" itemValue="41106" />
-                            <f:selectItem  itemLabel="SEDEX Varejo" itemValue="40010" />
+                            <f:selectItem itemLabel="SEDEX à vista" itemValue="04014" />
+                            <f:selectItem itemLabel="SEDEX à vista pagamento na entrega" itemValue="04065" />
+                            <f:selectItem itemLabel="PAC à vista" itemValue="04510" />
+                            <f:selectItem itemLabel="PAC à vista pagamento na entrega" itemValue="04707" />
+                            <f:selectItem itemLabel="SEDEX 12 ( à vista e a faturar)*" itemValue="40169" />
+                            <f:selectItem itemLabel="SEDEX 10 (à vista e a faturar)*" itemValue="40215" />
+                            <f:selectItem itemLabel="SEDEX Hoje Varejo*" itemValue="40290" />
                             <!-- <p:ajax update="listagem" /> -->
                         </p:selectOneMenu>
                         <h:outputLabel value="CEP Origem: "/>
@@ -110,12 +126,12 @@
                             <f:selectItem itemLabel="Sim" itemValue="S" />
                             <f:selectItem itemLabel="Não" itemValue="N" />
                         </p:selectOneMenu>
-                        <div align="left">
-                            <p:commandButton actionListener="#{controleCliente.enviaFrete()}"
+                        <h:outputLabel value="Ação: "/>
+                        <p:commandButton actionListener="#{controleCliente.enviaFrete()}"
                                              value="Salvar" ajax="false" icon="ui-icon-disk" title="Salvar Frete"
                                              update=":formVenda :formFrete grid" process="@form"
                                              oncomplete="if (!args.validationFailed){PF('dlg1').hide();}"/>                           
-                        </div>
+
                     </p:panelGrid>
                 </h:form>
             </p:dialog>

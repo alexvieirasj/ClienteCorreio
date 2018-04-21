@@ -66,7 +66,7 @@ public class ControleCliente implements Serializable{
     
     public void enviaFrete(){
         CResultado retorno = getServicoCorreio().getCalcPrecoPrazoWSSoap().calcPrecoPrazo(
-                   "", "",salvaDados.getNCdServico(), salvaDados.getSCepOrigem(), salvaDados.getSCepDestino(), salvaDados.getNVlPeso(), 
+                   salvaDados.getNCdEmpresa(), salvaDados.getSDsSenha(),salvaDados.getNCdServico(), salvaDados.getSCepOrigem(), salvaDados.getSCepDestino(), salvaDados.getNVlPeso(), 
                    salvaDados.getNCdFormato(),salvaDados.getNVlComprimento(), salvaDados.getNVlAltura(), salvaDados.getNVlLargura(), 
                    salvaDados.getNVlDiametro(), salvaDados.getSCdMaoPropria(), salvaDados.getNVlValorDeclarado(), salvaDados.getSCdAvisoRecebimento());
                       //Empresa, Senha - Não obrigatorio
